@@ -11,7 +11,7 @@ public class PaquetCarte {
 	//Variable classe PaquetCarte
 	private List<Carte> cartes = new ArrayList<Carte>();
 	private Joueur joueur;
-
+	
 	//Redéfinition des méthodes de base ajout et size pour cartes (type liste)
 	public void add(Carte c) {
 		cartes.add(c);
@@ -33,11 +33,13 @@ public class PaquetCarte {
 	public boolean sansPenalite() {
 		return joueur.sansPenalite();
 	}
+	
 	public void setJoueur(Joueur joueur) {
 		this.joueur = joueur;
 	}
 
 	public Carte remove(int arg0) {
+		//retourne la carte enlevée à liste de cartes
 		return cartes.remove(arg0);
 	}
 	
@@ -46,22 +48,20 @@ public class PaquetCarte {
 	}
 
 	public void gererErreur(PaquetCarte paquet2) {
-		
+		this.joueur.ajoutePenalite();
+		paquet2.joueur.oterEventuellementUnePenalite();
 	}
 	
 	public Carte testerCarteSommet(int positionCarte, Carte sommet, PaquetCarte autrePaquet) {
-		return null;
+		Carte carteRetournee = null;
+		if (this.get(positionCarte).estCompatible(sommet)) {
+			carteRetournee = this.remove(positionCarte);
+			autrePaquet.joueur.oterEventuellementUnePenalite();
+		}
+		return carteRetournee;
 	}
 	
-	//Fonction pour supprimer des cartes aléatoirement
-	private List<Carte> supprimerDuPaquet(int nbCartes) {
-		List<Carte> supprimees = new ArrayList<Carte>(nbCartes);
-		for (int i = 0; i < nbCartes; i++) {
-			int positionAleatoire = (int) (Math.random()*this.size());
-			supprimees.add(this.remove(positionAleatoire));
-		}
-		return supprimees;
-	}
+	
 
 	//Premier constructeur de paquetCarte
 	public PaquetCarte(Joueur joueur) {
@@ -89,6 +89,16 @@ public class PaquetCarte {
 		java.util.Collections.shuffle(cartes);
 	}
 
+	//Fonction pour supprimer des cartes aléatoirement et les mettre dans le sous paquet
+		private List<Carte> supprimerDuPaquet(int nbCartes) {
+			List<Carte> supprimees = new ArrayList<Carte>(nbCartes);
+			for (int i = 0; i < nbCartes; i++) {
+				int positionAleatoire = (int) (Math.random()*this.size());
+				supprimees.add(this.remove(positionAleatoire));
+			}
+			return supprimees;
+		}
+	
 	//Deuxième constructeur de paquetCarte
 	public PaquetCarte(PaquetCarte p, int nbCartes) {
 		super();

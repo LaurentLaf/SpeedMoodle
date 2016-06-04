@@ -43,7 +43,6 @@ public class Carte {
 		}
 		else {
 			this.vide = false;
-			
 			this.couleur = Carte.getColor(couleur);
 			this.motif = motif;
 			this.valeur = valeur;
@@ -55,6 +54,7 @@ public class Carte {
 		this.motif = Symbol.VIDE;
 		this.valeur = -1;
 	}
+	
 	private static Color getColor(int couleur) {
 		Color color = null; 
 		switch (couleur) {
