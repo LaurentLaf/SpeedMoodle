@@ -26,10 +26,8 @@ public class PaquetCarte {
 	public String getNomJoueur() {
 		return joueur.getNom();
 	}
-	
-	
 
-
+	
 	public boolean sansPenalite() {
 		return joueur.sansPenalite();
 	}
@@ -60,8 +58,6 @@ public class PaquetCarte {
 		}
 		return carteRetournee;
 	}
-	
-	
 
 	//Premier constructeur de paquetCarte
 	public PaquetCarte(Joueur joueur) {
